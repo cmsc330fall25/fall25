@@ -90,7 +90,7 @@ For everyone: to clone the project, do the following:
 3. Create a directory for your 330 projects, I recommend `mkdir ~/cmsc330fall25`
 4. Clone project 0 into that directory
     - Navigate to your 330 directory `cd ~/cmsc330fall25` 
-    - Clone the project into your current directory `git clone git@github.com:cmsc330fall25/zerothproject-YOUR_GITHUB_USERNAME` (you must edit the link with your github username)
+    - Clone the project into your current directory `git clone git@github.com:cmsc330fall25/zeroth-project-YOUR_GITHUB_USERNAME` (you must edit the link with your github username)
     - You can also find this link by clicking the green "Code" button on your project 0 GitHub page and copying the link under "SSH".
         - *You must use the SSH link, NOT the HTTP link that was shown when you first checked out the project*
 
