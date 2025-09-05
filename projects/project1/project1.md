@@ -20,7 +20,7 @@ You may **not** use any imperative structures of OCaml such as references (`ref`
 
 ### Testing & Submitting
 
-**Check out the project here:**  
+**Check out the project here:**  https://classroom.github.com/a/Q-7Jp9Fr
 
 The project will include the following types of tests:
 
