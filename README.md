@@ -3,6 +3,7 @@
 ### Links for Projects
 
 - Project 0 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project0/project0.md))
+- Project 1 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project1/project1.md))
 
 ### Links for Discussions
 
