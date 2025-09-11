@@ -8,3 +8,4 @@
 ### Links for Discussions
 
 - Discussion 1 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d1_git))
+- Discussion 2 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d2_ocaml))
