@@ -1,4 +1,4 @@
-# Discussion 2 - Friday, February 7th
+# Discussion 2 - Friday, September 12th
 
 ## Reminders
 
