@@ -4,7 +4,7 @@
 
 1. Quiz 1 next **Friday, September 19th**
    1. Quizzes will start **at the beginning of discussion** and you will have **25 minutes** to complete it.
-   1. Topics will be announced soon on Piazza.
+   1. Topics have been announced on Piazza: [@137](https://piazza.com/class/mbjy6l6wnge4f2/post/137).
 3. Project 1 has been pushed back! It is now due **~~Tuesday, September 16th @ 11:59 PM~~ Thursday, September 18th @ 11:59 PM**.
 4. Quiz makeup policy: [@34](https://piazza.com/class/mbjy6l6wnge4f2/post/34)
    1. Quiz makeups will be at the **start of your assigned lecture time** immediately following a quiz.
