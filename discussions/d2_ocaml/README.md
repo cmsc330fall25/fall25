@@ -192,6 +192,7 @@
     z: three
 </details>
 <br>
+
 ### Higher Order Functions (Map & Fold)
 
 Consider the following higher order functions:
