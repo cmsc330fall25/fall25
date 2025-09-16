@@ -213,7 +213,7 @@ let rec fold_right f lst a =
     | h::t -> f h (fold_right f t a)
 ```
 
-#### Map vs Fold
+### Map vs Fold
 Both `map` and `fold` are higher-order functions, but are used in different scenarios.
 
 ##### `map`
