@@ -192,7 +192,97 @@
     z: three
 </details>
 <br>
+### Higher Order Functions (Map & Fold)
 
+Consider the following higher order functions:
+
+```ocaml
+let rec map f xs =
+  match xs with
+    | [] -> []
+    | h::t -> (f h)::(map f t)
+
+let rec fold f a lst =
+  match lst with
+    | [] -> a
+    | h::t -> fold f (f a h) t
+
+let rec fold_right f lst a =
+  match lst with
+    | [] -> a
+    | h::t -> f h (fold_right f t a)
+```
+
+#### Map vs Fold
+Both `map` and `fold` are higher-order functions, but are used in different scenarios.
+
+##### `map`
+`map` is a structure-preserving operation, meaning that it applies a function to each element of a list and returns a new list of the same structure but with the new values. 
+
+##### `fold`
+`fold` processes the structure from either the left (`fold_left`) or the right (`fold_right`), and uses an accumulator to combine the elements through a given function, ultimately reducing the structure to a single value.
+
+Write the following functions using either `fold`, `fold_right`, and / or `map`:
+
+#### `list_square nums`
+
+- **Type**: `int list -> int list`
+- **Description:** Given a list of integers `nums`, return a list where each value is squared.
+- **Examples:**
+
+```ocaml
+list_square [1; 2; 3; 4] = [1; 4; 9; 16]
+list_square [0; 5; 6] = [0; 25; 36]
+list_square [] = []
+list_square [-3; -2; -1] = [9; 4; 1]
+```
+
+<details>
+    <summary>Solution</summary>
+    
+    let list_square nums = map (fun x -> x * x) nums
+</details>
+<br>
+
+#### `swap_tuples tuples`
+
+- **Type**: `(int * int) list -> (int * int) list`
+- **Description:** Given a list of two element tuples, swap the first and second elements of each tuple.
+- **Examples:**
+
+```ocaml
+swap_tuples [(1, 2); (3, 4)] = [(2, 1); (4, 3)]
+swap_tuples [(5, 10); (7, 8)] = [(10, 5); (8, 7)]
+swap_tuples [(0, 0)] = [(0, 0)]
+```
+
+<details>
+    <summary>Solution</summary>
+    
+    let swap_tuples tups = map (fun (a,b) -> (b,a)) tups
+</details>
+<br>
+
+#### `list_product nums`
+
+- **Type**: `int list -> int`
+- **Description:** Given a list of `nums`, return the product of all elements in the list.
+- **Examples:**
+
+```ocaml
+list_product [2; 5] = 10
+list_product [3; 0; 2] = 0
+list_product [] = 1
+```
+
+<details>
+    <summary>Solution</summary>
+    
+    let list_product nums = fold (fun acc elem -> acc * elem) 1 nums
+</details>
+<br>
+
+More information + examples can be found in the [Spring23 OCaml discussion](https://github.com/cmsc330-umd/spring23/tree/main/discussions/d3_ocaml).
 
 ## Resources & Additional Readings
 
