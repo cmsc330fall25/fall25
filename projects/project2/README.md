@@ -1,5 +1,5 @@
 # Project 2: HOFs on trees & Database design
-Due: February 24th 11:59 PM (Late: February 25th 11:59 PM)
+Due: October 2nd 11:59 PM (Late: October 3rd 11:59 PM)
 
 Points: 40% public, 30% semipublic, 30% secret
 
@@ -30,7 +30,7 @@ You can interactively test your code by running `dune utop src`, which will incl
 ### Check Out Link:
 - Please readme in its entirety before posting on piazza.
 - Please read the pinned project2 FAQ post on piazza before posting on piazza.
-- 
+- [https://classroom.github.com/a/tKvmiZOw](https://classroom.github.com/a/tKvmiZOw)
 
 ## Part 1: Database Design
 
