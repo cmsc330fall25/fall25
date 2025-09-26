@@ -363,14 +363,14 @@ This shows the importance of combining multiple properties + unit tests for ensu
    Now consider the 2 following incorrectly written functions, `mirror` and `contains`:
    ```ocaml
     (* mirror takes a bintree and should return a mirrored version of the binary tree*)
-    (* this code does not have any bugs! *)
+    (* this code may or may not have bugs! *)
     let rec mirror tree = match tree with
     | Leaf(x) -> Leaf(x)
     | Node(l, v, r) -> Node((mirror l), v, (mirror r))
    ```
    ```ocaml
     (* contains takes a bintree and int, and should return true if the int is in the bintree, and false otherwise*)
-    (* this code has a bug! *)
+    (* this code may or may not have bugs! *)
     let rec contains tree value = match tree with
     | Leaf(x) -> false
     | Node(l, v, r) -> (contains l value) || (v = value) || (contains r value)
