@@ -393,7 +393,7 @@ This shows the importance of combining multiple properties + unit tests for ensu
     #### Solution:
     <details>
       <summary><b>Click here!</b></summary>
-          No - this property is valid (a mirrored tree should still contain the same values) so a correct implementation of contains would always return true
+          No, even though our mirror implementation has a bug, that bug does not change which values are present in the tree, and so will not violate this property.
         </details>
     
 - If we test this property on ***our*** implementation of `contains` and a ***correct*** implementation of `mirror`, will it ever return false?
