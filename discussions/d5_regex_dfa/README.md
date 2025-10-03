@@ -206,7 +206,7 @@ Draw out the DFAs for the following languages (or explain why you cannot):
 
 </details>
 
-3. A Road Name - [A-Za-z]\s+(Ave|Blvd)
+3. A Road Name - [A-Za-z]+\s+(Ave|Blvd)
      - Includes: Balitmore Ave, Fifth    &nbsp; &nbsp; Ave, Hollywood Blvd, 
      - Excludes: Ave, HollywoodBlvd, Radburn Court
 <details>
