@@ -212,7 +212,8 @@ Draw out the DFAs for the following languages (or explain why you cannot):
 <details>
     <summary><b>Solution</b></summary>
  
-![image](https://hackmd.io/_uploads/HyZoGC3nlg.png)
+<img width="787" height="297" alt="Screenshot 2025-10-03 at 9 14 27 AM" src="https://github.com/user-attachments/assets/2e6413fb-3262-48a9-baf9-b9253d8d13bc" />
+
 
 </details>
     
