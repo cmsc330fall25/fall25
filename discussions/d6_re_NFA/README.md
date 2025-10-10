@@ -180,10 +180,10 @@ Our table would end up looking like the following:
 | []         |            |            |        |
 | [S0]       |  [S0;S1]   |            |        |
 | [S1]       |            |            |        |
-| [S2]       |    [S2]    |            |        |
-| [S0;S1]    |  [S0;S1]   | [S1;S2]    |  [S2]  |
-| [S0;S2]    |            |            |        |
-| [S1;S2]    | [S1;S2;S0] |            |        |
+| [S2]       |    [S2]    |     []     |  [S2]  |
+| [S0;S1]    |  [S0;S2]   | [S1;S2]    |  [S2]  |
+| [S0;S2]    | [S1;S2;S0] |            |        |
+| [S1;S2]    |            |            |        |
 | [S0;S1;S2] | [S1;S2;S0] | [S1;S2;S0] |  [S2]  |
 
 ### Resources and Extra Practice
