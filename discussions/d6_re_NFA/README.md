@@ -53,9 +53,11 @@ So we can reframe the the model: If I flip a coin, I will get either heads or ta
 Let's take the following example:
 
 ![image](https://hackmd.io/_uploads/BkFd7WIpgg.png)
+
 Here we have 2 possible outcomes if we see an 'a' and are in state $S_0$: $S_1$ and $S_2$. So instead of saying we have 2 possible outcomes, we can reframe:
 
 ![image](https://hackmd.io/_uploads/Bkx0mWIpgl.png)
+
 Now we have 1 absolute outcome if we see an 'a' and are in state $S_0$.
 In this case, we want to say "Where are all the possible places I can end up after I see symbol $x$ in state $s$"? Let's call this idea `move`. 
 ```
@@ -63,9 +65,13 @@ move "a" s0 = [s1;s2]
 ```
 
 However, there is a special case we are missing/something we are missing. 
+
 ![image](https://hackmd.io/_uploads/SkJDSZ8Tlx.png)
+
 If I am in $S_3$ and see an 'a', we would say we would end up in state $S_4$. However, it would also be accurate to say that we could also end up in state $S_5$. If this does not make sense let's rephrase the question and change some values around:
+
 ![image](https://hackmd.io/_uploads/HkVILbIplg.png)
+
 The new question becomes: "If you are in state $S_3$ and have $1 in your pocket, where are all the places you can afford to go?". In this case, you could afford to go to $S_4$ and $S_5$. In this case, a `move` is not sufficient. 
 ```
 move "a" s3 = [s4]
@@ -85,7 +91,7 @@ Let's consider that if we are going to be combining states: then we have a maxim
 [S0;S1] [S0;S2] [S1;S2]
 [S0;S1;S2]
 ```
-Now technically there is the implicit trash state $T$ to consider. So the powerset really is
+Technically, there is the implicit trash state $T$ to consider. So the powerset really is
 ```
 []
 [T] [S0] [S1] [S2]
@@ -93,20 +99,20 @@ Now technically there is the implicit trash state $T$ to consider. So the powers
 [T;S0;S1] [T;S0;S2] [T;S1;S2] [S0;S1;S2]
 [T;S0;S1;S2]
 ```
-Now for simplicity we will leave out the Trash state since it is implicit. 
 
-Since these are all possible states that could exist, we could fill out the following Table to keep track of which states point to which other states:
+But we don't actually need to explicitly state the existence of $T$, so we will not.
 
-| State      | eclosure | move a | move b |
-| ---------- | -------- | ------ | ------ |
-| []         |          |        |        |
-| [S0]       |          |        |        |
-| [S1]       |          |        |        |
-| [S2]       |          |        |        |
-| [S0;S1]    |          |        |        |
-| [S0;S2]    |          |        |        |
-| [S1;S2]    |          |        |        |
-| [S0;S1;S2] |          |        |        |
+Okay, so our DFA states will all be some subset of the powerset of the states of the NFA.
+
+We will use the following table to keep track of which states in the DFA actually exist, and which have a transition to which other states:
+
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| *<state>*  | *<eclosure (move a)>* | *<eclosure (move b)>* |
+| *<state>*  | *<eclosure (move a)>* | *<eclosure (move b)>* |
+| *<state>*  | *<eclosure (move a)>* | *<eclosure (move b)>* |
+| ... | ... | ... |
+
 
 Let's consider our goal: we want to make a DFA. In this case, we want to be certain about where we are, and where we go on each symbol. The best place to start is the begining. So let's ask ourselves: "Where could I start the traversal?"
 
@@ -114,9 +120,16 @@ In this case, we just need to call `eclosure` on the starting state.
 ```
 eclosure s0 = [s0;s1]
 ```
-
 ![image](https://hackmd.io/_uploads/BJ_KY-Upge.png)
-This is our start state of the DFA. We then need to consider what the next steps are: "a" and "b". Let's start with "a". So we should ask ourselves: "If I am in $S_0$ or $S_1$ and I see an 'a', where do I end up?" In this case, if I am in $S_0$ and see an "a" I end up in the trash state $T$. If I am in $S_1$ and see an "a" I could end up in the state $S_0$ or $S_2$. Logically we can conclude the following:
+
+This is our start state of the DFA.
+
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1] | ? | ?  |
+
+
+We then need to consider what the next steps are: "a" and "b". Let's start with "a". So we should ask ourselves: "If I am in $S_0$ or $S_1$ and I see an 'a', where do I end up?" In this case, if I am in $S_0$ and see an "a" I end up in the trash state $T$. If I am in $S_1$ and see an "a" I could end up in the state $S_0$ or $S_2$. Logically we can conclude the following:
 ```
 S0 => T           // If I am in S0 then I end up in T
 S1 => S0 v S2     // If I am in S1, then I end up in S0 or S2
@@ -129,62 +142,108 @@ Notice this is the same as asking:
 ```
 eclosure ((move "a" s0) @ (move "a" s1))
 ```
+or more simply
+```
+eclosure (move "a" [s0;s1])
+```
+
 We can now take this result and add it to our DFA:
 
 ![image](https://hackmd.io/_uploads/HJVnfGLpgx.png)
+
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1] | [0,1,2] | ?  |
 
 
 (Again, we are leaving out $T$ because it is implicit)
 
 Now we should consider the other next step is: "b". So we can now ask the question: "If I am in $S_0$ or $S_1$ and I see an 'b', where do I end up"? In this case, if I am $S_0$, I end up in $S_2$. If I am in $S_1$, I end up in the trash state $T$. So calculating
 ```
-eclosure ((move "b" s0) @ (move "b" s1))
+eclosure (move "b" [s0;s1])
 ```
 gives us the following:
 
 ![image](https://hackmd.io/_uploads/H16AMGIagg.png)
 
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
 
-
-Our DFA now has a starting state that then has a deterministic futures on each action (symbol). But wait, now we have the new states [$S_1;S_2;S_0$] and [$S_0;S_1$]. We need to make sure we know what their futures are after each action (symbol). So now we just do what we did above:
+Our DFA now has a starting state that then has a deterministic futures on each action (symbol). But wait, now we have the new states [S_1;S_2;S_0] and [S_0;S_1]. We need to make sure we know what their futures are after each action (symbol). So now we just do what we did above:
 ```
-eclosure ((move "a" S1) @ (move "a" S2) @ (move "a" s0))
+eclosure (move "a" [S1;S2;S0])
 ```
-
 ![image](https://hackmd.io/_uploads/S1_bXfLpxl.png)
 
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   ?    |
+
+<br>
+
+Then the same for "b":
 
 ```
-eclosure ((move "b" S1) @ (move "b" S2) @ (move "b" s0))
+eclosure (move "b" [S1;S2;S0])
 ```
-
 ![image](https://hackmd.io/_uploads/Bkiz7zUTgg.png)
 
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   [2]  |
 
-Now [$S_1;S_2;S_0$] also has deterministic features on each action (symbol). So now we just have to make [$S_2$] deterministic.
+
+Now [$S_1;S_2;S_0$] also has deterministic features on each action (symbol). So now we just have to make [S_2] deterministic.
 ```
 eclosure (move "a" S2)
 ```
-(Nothing changes because trash state is implicit)
+(Nothing changes in our drawing because trash state is implicit)
+
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   [2]  |
+| [2]        | []     |   ?    |
+
+<br>
+
+Then the same for "b":
+
 ```
 eclosure (move "b" S2)
 ```
 ![image](https://hackmd.io/_uploads/B1-8mGLaxl.png)
 
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   [2]  |
+| [2]        | []     |   [2]  |
 
-Congrats, we now have a fully deterministic FSM that is equivalent to the initial NFA.
+<br>
 
-Our table would end up looking like the following:
-| State      |  eclosure  |   move a   | move b |
-| ---------- | ---------- | ---------- | ------ |
-| []         |            |            |        |
-| [S0]       |  [S0;S1]   |            |        |
-| [S1]       |            |            |        |
-| [S2]       |    [S2]    |     []     |  [S2]  |
-| [S0;S1]    |  [S0;S2]   | [S1;S2]    |  [S2]  |
-| [S0;S2]    | [S1;S2;S0] |            |        |
-| [S1;S2]    |            |            |        |
-| [S0;S1;S2] | [S1;S2;S0] | [S1;S2;S0] |  [S2]  |
+Okay, did we find any new states that we need to check? Well, we found `[]`, but this is a garbage state no matter what. This means we don't need to draw it or include it as its own row in the table, and therefore we shouldn't to save time and computational power. Nothing else was new!
+
+
+Congrats, we now have a fully deterministic FSM that is equivalent to the initial NFA - EXCEPT, there are no final states! How do we decide what's final and what's not?
+
+Well when we do acceptance on an NFA, if some input means we "might be" in a final state, this means this input is accepted. So in the corresponding DFA, a state whose associated list contains a final state from the NFA should be accepting.
+
+Our original NFA accepts on S2 only. Of our 3 DFA states, [0;1;2] and [2] contain S2 and should be final.
+
+Our fully complete table would end up looking like the following, where we have marked final states with an `X` symbol in the `Final?` column and left nonfinal states blank.
+| F? | State      |   a    |   b    |
+| ------ | ---------- | ------ | ------ |
+|        | [0;1]      | [0,1,2]|   [2]  |
+|   `X`  | [0,1,2]    | [0,1,2]|   [2]  |
+|   `X`  | [2]        | []     |   [2]  |
+
+and our drawing would look like this:
+
+![1](https://hackmd.io/_uploads/B1UBoGs6el.png)
 
 ### Resources and Extra Practice
 - [NFA to DFA Practice Problems](https://bakalian.cs.umd.edu/330/practice/nfa2dfa)
