@@ -106,9 +106,12 @@ Okay, so our DFA states will all be some subset of the powerset of the states of
 
 We will use the following table to keep track of which states in the DFA actually exist, and which have a transition to which other states:
 
-| Final? | State      |   a    |   b    |
-| ------ | ---------- | ------ | ------ |
-| *<?>* | *<?>*  | *<?>* | *<?>* |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| *<state>*  | *<eclosure (move a)>* | *<eclosure (move b)>* |
+| *<state>*  | *<eclosure (move a)>* | *<eclosure (move b)>* |
+| *<state>*  | *<eclosure (move a)>* | *<eclosure (move b)>* |
+| ... | ... | ... |
 
 
 Let's consider our goal: we want to make a DFA. In this case, we want to be certain about where we are, and where we go on each symbol. The best place to start is the begining. So let's ask ourselves: "Where could I start the traversal?"
@@ -118,11 +121,12 @@ In this case, we just need to call `eclosure` on the starting state.
 eclosure s0 = [s0;s1]
 ```
 ![image](https://hackmd.io/_uploads/BJ_KY-Upge.png)
+
 This is our start state of the DFA.
 
-| Final? | State      |   a    |   b    |
-| ---| ---------- | ------ | ------ |
-|*<?>*| [0;1] | ? | ?  |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1] | ? | ?  |
 
 
 We then need to consider what the next steps are: "a" and "b". Let's start with "a". So we should ask ourselves: "If I am in $S_0$ or $S_1$ and I see an 'a', where do I end up?" In this case, if I am in $S_0$ and see an "a" I end up in the trash state $T$. If I am in $S_1$ and see an "a" I could end up in the state $S_0$ or $S_2$. Logically we can conclude the following:
@@ -144,11 +148,12 @@ eclosure (move "a" [s0;s1])
 ```
 
 We can now take this result and add it to our DFA:
+
 ![image](https://hackmd.io/_uploads/HJVnfGLpgx.png)
 
-|Final?| State      |   a    |   b    |
-|--| ---------- | ------ | ------ |
-|*<?>*| [0;1] | [0,1,2] | ?  |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1] | [0,1,2] | ?  |
 
 
 (Again, we are leaving out $T$ because it is implicit)
@@ -158,22 +163,23 @@ Now we should consider the other next step is: "b". So we can now ask the questi
 eclosure (move "b" [s0;s1])
 ```
 gives us the following:
+
 ![image](https://hackmd.io/_uploads/H16AMGIagg.png)
 
-|Final?| State      |   a    |   b    |
-|--| ---------- | ------ | ------ |
-|*<?>*| [0;1]      | [0,1,2]|   [2]  |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
 
-Our DFA now has a starting state that then has a deterministic futures on each action (symbol). But wait, now we have the new states [$S_1;S_2;S_0$] and [$S_0;S_1$]. We need to make sure we know what their futures are after each action (symbol). So now we just do what we did above:
+Our DFA now has a starting state that then has a deterministic futures on each action (symbol). But wait, now we have the new states [S_1;S_2;S_0] and [S_0;S_1]. We need to make sure we know what their futures are after each action (symbol). So now we just do what we did above:
 ```
 eclosure (move "a" [S1;S2;S0])
 ```
 ![image](https://hackmd.io/_uploads/S1_bXfLpxl.png)
 
-|Final?| State      |   a    |   b    |
-|--| ---------- | ------ | ------ |
-|*<?>*| [0;1]      | [0,1,2]|   [2]  |
-|*<?>*| [0,1,2]    | [0,1,2]|   ?    |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   ?    |
 
 <br>
 
@@ -184,23 +190,23 @@ eclosure (move "b" [S1;S2;S0])
 ```
 ![image](https://hackmd.io/_uploads/Bkiz7zUTgg.png)
 
-|Final?| State      |   a    |   b    |
-|--| ---------- | ------ | ------ |
-|*<?>*| [0;1]      | [0,1,2]|   [2]  |
-|*<?>*| [0,1,2]    | [0,1,2]|   [2]  |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   [2]  |
 
 
-Now [$S_1;S_2;S_0$] also has deterministic features on each action (symbol). So now we just have to make [$S_2$] deterministic.
+Now [$S_1;S_2;S_0$] also has deterministic features on each action (symbol). So now we just have to make [S_2] deterministic.
 ```
 eclosure (move "a" S2)
 ```
 (Nothing changes in our drawing because trash state is implicit)
 
-|Final?| State      |   a    |   b    |
-|--| ---------- | ------ | ------ |
-|*<?>*| [0;1]      | [0,1,2]|   [2]  |
-|*<?>*| [0,1,2]    | [0,1,2]|   [2]  |
-|*<?>*| [2]        | []     |   ?    |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   [2]  |
+| [2]        | []     |   ?    |
 
 <br>
 
@@ -211,11 +217,11 @@ eclosure (move "b" S2)
 ```
 ![image](https://hackmd.io/_uploads/B1-8mGLaxl.png)
 
-|Final?| State      |   a    |   b    |
-|--| ---------- | ------ | ------ |
-|*<?>*| [0;1]      | [0,1,2]|   [2]  |
-|*<?>*| [0,1,2]    | [0,1,2]|   [2]  |
-|*<?>*| [2]        | []     |   [2]  |
+| State      |   a    |   b    |
+| ---------- | ------ | ------ |
+| [0;1]      | [0,1,2]|   [2]  |
+| [0,1,2]    | [0,1,2]|   [2]  |
+| [2]        | []     |   [2]  |
 
 <br>
 
@@ -229,7 +235,7 @@ Well when we do acceptance on an NFA, if some input means we "might be" in a fin
 Our original NFA accepts on S2 only. Of our 3 DFA states, [0;1;2] and [2] contain S2 and should be final.
 
 Our fully complete table would end up looking like the following, where we have marked final states with an `X` symbol in the `Final?` column and left nonfinal states blank.
-| Final? | State      |   a    |   b    |
+| F? | State      |   a    |   b    |
 | ------ | ---------- | ------ | ------ |
 |        | [0;1]      | [0,1,2]|   [2]  |
 |   `X`  | [0,1,2]    | [0,1,2]|   [2]  |
