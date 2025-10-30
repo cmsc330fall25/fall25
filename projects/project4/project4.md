@@ -679,7 +679,7 @@ Being able to modify the placeholder is made possibly by using references; this 
 
 - `extend env x e` produces an environment that extends `env` with a mapping from `x` to `e`
 - `lookup env x` returns `e` if `x` maps to `e` in `env`; if there are multiple mappings, it chooses the most recent.
-- `extend_tmp x` produces an environment that extends `env` with a mapping from `x` to a temporary placeholder.
+- `extend_tmp env x` produces an environment that extends `env` with a mapping from `x` to a temporary placeholder.
 - `update env x e` produces an environment that updates `env` in place, modifying its most recent mapping for `x` to be `e` instead (removing the placeholder).
 
 ### Fun
