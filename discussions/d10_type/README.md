@@ -4,7 +4,7 @@
 
 1. Quiz Today!
 2. Project 4 is released, due **November 11th @ 11:59PM**.
-3. Exam 2 on **November 20th**
+3. Exam 2 on **November 18th**
 
 
 ## Type Inference
