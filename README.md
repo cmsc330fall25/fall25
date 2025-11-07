@@ -19,3 +19,4 @@
 - Discussion 7 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d7_NFA_to_DFA))
 - Discussion 8 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d8_cfg_interps))
 - Discussion 9 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d9_opsem))
+- Discussion 10 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d10_type))
