@@ -1,7 +1,7 @@
 # Project 5: Type Inferencing and Checking
-Due: Wednesday November 19, 2025 at 11:59 PM (Late: Thursday, November 20, 2025 at 11:59 PM)
+Due: Tuesday November 25, 2025 at 11:59 PM (Late: Wednesday, November 26, 2025 at 11:59 PM)
 
-Points: ?
+Points: 20 public, 60 semipublic, 20 secret.
 
 ## Introduction
 
@@ -22,7 +22,7 @@ The relevant variant types, ASTs, and CFGs are below:
 type c_exptype =
   | Int_Type
   | Bool_Type
-  | Unknown_Type of int  (*represents "user inputted" values*)
+  | Unknown_Type of int  (* represents "user inputted" values *)
 ```
 
 `c_expr` type:
@@ -47,7 +47,7 @@ type c_expr =
   | VarID of var
   | OpBin of op * c_expr * c_expr
   | OpNot of c_expr
-  | Value  (*represents "user inputted" values*)
+  | Value  (* represents "user inputted" values *)
 ```
 \
 Here is the CFG that the provided parser is based off of. It will not be super important to your work, but may be relevant when you are thinking up student test cases.
@@ -146,7 +146,7 @@ It may be helpful to reference your evaluator from project 4 when working in thi
 
 #### `typecheck : stmt -> bool`
 
-* **Description:** Takes in an AST `stmt`, and type checks the expression in the given environment, returning `true` if the expression passes the type checker. Throw a `TypeError`if it does not. (This does mean it should never return false).
+* **Description:** Takes in an AST `stmt`, and type checks the expression in the given environment, returning `true` if the expression passes the type checker, else throw an error.
 
 * **Exception:** Throws a `TypeError` if the expression does not type check. 
 * **Exception:** Throws a `DeclareError` if there is an unbound variable. 
@@ -154,7 +154,7 @@ It may be helpful to reference your evaluator from project 4 when working in thi
   - Every variable name will be unique (no shadowing).
   - The given type in the Ast for any variable will be consistent throughout the same program. 
 
-Note: we give you the assumption that there is *no shadowing* and that you can be sure that *all* test cases will have the same declared type for an assignment on the same variable. 
+Important note: we give you the assumption that there is *no shadowing* and that you can be sure that *all* test cases will have the *same* declared type for an assignment on the same variable. 
 
 So you will *never* see this: 
 
@@ -196,7 +196,7 @@ typecheck (Seq(Assign("x",Int_Type,Int(3)),Assign("x",Bool_Type,Bool(true)))) =>
 
 When you use the provided helper `parse_c_expr` in `dune utop src` to make your own test cases, all assignments will have a declared type of "unknown" due to how this parser is written. 
 
-As in the examples above, in most test cases we test you on, we have replaced the declared type with either `Bool_Type` or `Int_Type`, and you have to figure out if assignments and usages match those. For instance:
+***Important Note***: As in the examples above, in most test cases we test you on, we have replaced the default declared type with either `Bool_Type` or `Int_Type`, and you have to figure out if assignments and usages match those. For instance:
 
 ```ocaml
 (* 
@@ -436,7 +436,7 @@ Goal: Type inference has produced a tentative type and a set of constraints. We 
 
 For instance, if inference produced a tentative type `int` and a constraint set `{'a:'b, 'b:int}`, when we apply those constraints to the tentative type, no changes occur, and our final type is `int`. 
 
-However, if we had the same constraint set with a tentatitive type `'a -> 'b -> bool`, the final type of the expression should be `int -> int -> bool`.
+However, if we had the same constraint set with a tentatitive type `'a -> ('b -> bool)`, the final type of the expression should be `int -> (int -> bool)`.
 
 #### `substitute : constraints -> o_exptype -> o_exptype`
 * **Description:** Given a constraint list (perhaps a simplified one) and a type, substitute any information gained from the constraint list into the type to get a final type.
