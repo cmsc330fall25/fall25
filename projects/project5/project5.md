@@ -16,6 +16,8 @@ In addition to all of the built in OCaml features and feature we've taught about
 
 In this portion of the project, you will implement a type checker for a new language called SmallC - a version of the language C with a subset of the features. You do not need to worry about lexing and parsing SmallC - a 'lexer_c.mll' and 'parser_c.mly' file have been provided for you. You can create an AST be using `parse_c_expr` in utop, as in some examples given later.
 
+>NOTE! You **MUST** test with `dune utop` rather than `dune utop src` for this project, as the parser helpers are defined outside of src. In previous projects, you may have used `dune utop src` to test in utop, but here you must use `dune utop` instead.
+
 The relevant variant types, ASTs, and CFGs are below:
 
 ```ocaml
@@ -146,7 +148,7 @@ It may be helpful to reference your evaluator from project 4 when working in thi
 
 #### `typecheck : stmt -> bool`
 
-* **Description:** Takes in an AST `stmt`, and type checks the expression in the given environment, returning `true` if the expression passes the type checker, else throw an error.
+* **Description:** Takes in an AST `stmt`, type checks it, returning `true` if the expression passes the type checker, else throws an error.
 
 * **Exception:** Throws a `TypeError` if the expression does not type check. 
 * **Exception:** Throws a `DeclareError` if there is an unbound variable. 
@@ -194,7 +196,7 @@ typecheck (Seq(Assign("x",Int_Type,Int(3)),Assign("x",Bool_Type,Bool(true)))) =>
 
 #### Unknown_Type
 
-When you use the provided helper `parse_c_expr` in `dune utop src` to make your own test cases, all assignments will have a declared type of "unknown" due to how this parser is written. 
+When you use the provided helper `parse_c_expr` in `dune utop` to make your own test cases, all assignments will have a declared type of "unknown" due to how this parser is written.
 
 ***Important Note***: As in the examples above, in most test cases we test you on, we have replaced the default declared type with either `Bool_Type` or `Int_Type`, and you have to figure out if assignments and usages match those. For instance:
 
@@ -206,7 +208,7 @@ When you use the provided helper `parse_c_expr` in `dune utop src` to make your 
     x = true; // causes failure - attempt to assign bool type to int-declared x
   }
 *)
-typecheck (Seq (Assign ("x", Int_Type, Integer 4), Assign ("x", Int_Type, Boolean true))) = false
+typecheck (Seq (Assign ("x", Int_Type, Integer 4), Assign ("x", Int_Type, Boolean true))) = (*failure*)
 
 (* 
   // x is declared as 'Bool_Type' in the AST
@@ -215,7 +217,7 @@ typecheck (Seq (Assign ("x", Int_Type, Integer 4), Assign ("x", Int_Type, Boolea
     x = true; // ok
   }
 *)
-typecheck (Seq (Assign ("x", Bool_Type, Integer 4), Assign ("x", Bool_Type, Boolean true))) = false
+typecheck (Seq (Assign ("x", Bool_Type, Integer 4), Assign ("x", Bool_Type, Boolean true))) = (*failure*)
 ```
 
 However, in some, it is left as `Unknown_Type`, which is a subtype of both Int and Bool - since this is a *typechecker* that does *no inference*, even if that variable is used in conflicting ways, the typechecker will not catch it:
@@ -262,7 +264,9 @@ Part (B) will be fairly similar in structure to Part (A), but more complex. As s
 
 ### AST
 
-Below is the AST type `o_expr`, which is returned by the parser for OCaml `parse_o_expr`. We provided the lexer and parser generators (ocamllex, ocamlyacc) for this project. You can use your own parser from Project 4, but you will have to update it according to the new AST. Most notably we removed `string` support and added a new type: `TTick of int`. 
+Below is the AST type `o_expr`, which is returned by the parser for OCaml `parse_o_expr`. We provided the lexer and parser generators (ocamllex, ocamlyacc) for this project. 
+
+If you want, you could use your own parser from Project 4, but you will have to update it according to the new AST. Most notably we removed `string` support and added a new type: `TTick of int`. However, we recommend using the provided `parse_o_expr` for simplicity.
 ```ocaml
 (* Binary operators *)
 type op =
@@ -337,7 +341,7 @@ As such, the type inferencer you are writing here will have to keep track of a c
 
 ## Type Inferencer Helpers
 
-Type inference for MicroCaml will require a few helpers that type checking and evaluation did not. These are not tested directly in the publics, so we recommend testing them in `dune utop src` with the cases provided here in the readme plus any of your own. You *will* need these helpers to properly write your inferencer.
+Type inference for MicroCaml will require a few helpers that type checking and evaluation did not. These are not tested directly in the publics, so we recommend testing them in `dune utop` with the cases provided here in the readme plus any of your own. You *will* need these helpers to properly write your inferencer.
 
 >Note: This project will *not* implement let polymorphism. This means you will not need to implement 'generalize' or 'instantiate', which you may have seen referenced in some class notes.
 
@@ -502,7 +506,7 @@ Submit by running `submit` after pushing your code to GitHub.
 
 All tests will be run on direct calls to your code, comparing your return values/failure to the expected return values/failure. Any other output (e.g., for your own debugging) will be ignored. We recommend using relevant error messages when raising exceptions in order to make debugging easier. We are not requiring intelligent messages that pinpoint an error to help a programmer debug, but as you do this project you might find you see where you could add those.
 
-To test from the toplevel, run `dune utop src`. The necessary functions and types will automatically be imported for you.
+To test from the toplevel, run `dune utop`. The necessary functions and types will automatically be imported for you. For this project, use `dune utop` instead of `dune utop src` to be able to use the provided parsers.
 
 ## Academic Integrity
 
