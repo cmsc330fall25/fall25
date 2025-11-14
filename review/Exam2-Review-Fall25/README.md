@@ -1,5 +1,7 @@
 # Exam 2 Review Session
 
+[Very messy live review notes](./review-session-notes.pdf)
+
 ## Sections
 - [NFA-DFA](#nfa-dfa)
 - [Operational Semantics](#operational-semantics)
@@ -390,10 +392,12 @@ N → 1 | 2 | 3 | 4 | true | false | (E)
 
 1.c: lex
 
-1.d: parse
+1.d: parse - please refer to [@747](https://piazza.com/class/mbjy6l6wnge4f2/post/747) for a more detailed explanation
 
 </details>
-In-depth notes are available in `lexparsintqs.txt` contains an overview of lexing, parsing, and interpreting with some sample multiple choice questions ("when will it fail?") and a walkthrough of how to build parse trees/abstract syntax trees. 
+
+
+In-depth notes are available in [lexparsintqs.txt](./lexparsintqs.txt) contains an overview of lexing, parsing, and interpreting with some sample multiple choice questions ("when will it fail?") and a walkthrough of how to build parse trees/abstract syntax trees. 
 
 * `samplegrammarblank.ml` contains a blank version of a lexer, parser, interpreter, and typechecker, with step by step instructions on how to approach each one
 * `samplegrammar.ml` contains a filled in version of a lexer, parser, interpreter, and typechecker, without step by step instructions, but with inline comments
