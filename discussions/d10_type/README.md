@@ -90,7 +90,7 @@ Use the above rules to show the type inference proof for the following:
     
 1. INVALID proof:
 
-    proof: $\cfrac{\cfrac{}{G\ \vdash\ true\ :\ bool \dashv \\{\\}}\quad \cfrac{}{G\ \vdash\ 4\ :\ int \dashv\ \\{\\}} }{G\ \vdash true\ + 4\ :\ bool \dashv \\{bool:int,bool:int\\}}$
+    proof: $\cfrac{\cfrac{}{G\ \vdash\ true\ :\ bool \dashv \\{\\}}\quad \cfrac{}{G\ \vdash\ 4\ :\ int \dashv\ \\{\\}} }{G\ \vdash true\ + 4\ :\ int \dashv \\{bool:int,bool:int\\}}$
 
     - $\\{bool:int,bool:int\\}$ has a contradiction, hence invalid.
 
