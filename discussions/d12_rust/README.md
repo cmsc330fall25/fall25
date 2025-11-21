@@ -474,6 +474,8 @@ The idea is: If we can keep track of a single variable who owns a single value, 
 
 #### Step 2: References
 
+(References/Borrowing have not been covered in lecture yet, but are here for your reference :) )
+
 We don't always want to either clone or take ownership of a value. Instead, we can create a reference to that value with `&`:
 
 ```rust
