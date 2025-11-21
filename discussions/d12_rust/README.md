@@ -1,8 +1,8 @@
-# Discussion 11 - Friday, April 18th
+# Discussion 12 - Friday, November 21st
 
 ## Reminders
 
-- Project 5 due **Tuesday** (Late Token deadline *Wednesday*)
+- Project 5 due **Tuesday, November 25th @ 11:59pm** (Late Token deadline *Wednesday*)
 
 ## Rust
 ### Rust References
