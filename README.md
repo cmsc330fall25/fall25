@@ -8,6 +8,7 @@
 - Project 3 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project3/project3.md))
 - Project 4 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project4/project4.md))
 - Project 5 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project5/project5.md))
+- Project 67 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project67/README.md))
 
 ### Links for Discussions
 
