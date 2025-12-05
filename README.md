@@ -8,7 +8,6 @@
 - Project 3 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project3/project3.md))
 - Project 4 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project4/project4.md))
 - Project 5 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project5/project5.md))
-- Project 67 ([README](https://github.com/cmsc330fall25/fall25/blob/main/projects/project67/README.md))
 
 ### Links for Discussions
 
@@ -24,6 +23,7 @@
 - Discussion 10 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d10_type))
 - Discussion 11 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d11_lambda))
 - Discussion 12 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d12_rust))
+- Discussion 13 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d13_rust_gc))
 
 ### Review
 - Exam 2 ([README](https://github.com/cmsc330fall25/fall25/tree/main/review/Exam2-Review-Fall25))
