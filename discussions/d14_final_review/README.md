@@ -371,18 +371,31 @@ fn main(){
 }
 ```
 
+##### 10. 
+```{rust}
+struct Pokemon{
+  name:String, hp:usize
+}
+fn main(){
+  let mut x = Pokemon{name:String::from("Pikachu"), hp: 30};
+  let y = &x;
+  let z = y.name;
+}
+```
+
 <details>
   <summary><b>Solution</b></summary>
     
-    1. Compiles
+    1. Compiles - ints Copy. If these were Strings, they would not.
     2. FAILS to compile - Cannot borrow mut from immutable value
-    3. FAILS to compile - Two mut borrows exist and used at the same time
-    4. FAILS to compile - Two mut borrows exist and used at the same time
+    3. FAILS to compile - Two mut borrows exist and used at the same time (mut usage of original x in push counts as temporary mutable borrow)
+    4. FAILS to compile - A mut borrow and an immut borrow exist and used at the same time (immut usage of original x in print counts as temporary immutable borrow)
     5. Compiles - lifetime of y ends before x is used
     6. FAILS to compile - Arguments are not references
     7. Compiles
     8. Compiles
-    9. FAILS to compile - one mut and one immut borrow to the name, need to use .clone()
+    9. FAILS to compile - z takes ownership of the value "Pikachu", and so x.name can no longer access it in the print.
+    10. FAILS to compile - y is borrowing x, and then z attempts to take ownership of the value referenced by z.name, but you are not allowed to take ownership through a reference.
 </details>
 
 #### 9. Garbage Collection
