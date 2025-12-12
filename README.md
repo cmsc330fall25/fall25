@@ -25,6 +25,7 @@
 - Discussion 11 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d11_lambda))
 - Discussion 12 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d12_rust))
 - Discussion 13 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d13_rust_gc))
+- Discussion 14 ([README](https://github.com/cmsc330fall25/fall25/tree/main/discussions/d14_final_review))
 
 ### Review
 - Exam 2 ([README](https://github.com/cmsc330fall25/fall25/tree/main/review/Exam2-Review-Fall25))
